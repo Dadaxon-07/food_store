@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_store/detal.dart';
+
 import 'package:food_store/widget/widget_support.dart';
 
 class HomePage extends StatefulWidget {
@@ -232,41 +234,46 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget food({img, name, title, price}) {
-    return Container(
-      margin: EdgeInsets.all(4),
-      child: Material(
-        elevation: 5.0,
-        borderRadius: BorderRadius.circular(20),
-        child: Container(
-          padding: EdgeInsets.all(14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.asset(
-                img,
-                height: 150,
-                width: 150,
-                fit: BoxFit.cover,
-              ),
-              Text(
-                name,
-                style: AppWidget.semiBoldTextFieldStyle(),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                title,
-                style: AppWidget.LightTextFieldStyle(),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                price,
-                style: AppWidget.semiBoldTextFieldStyle(),
-              )
-            ],
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailsPage(image: img, name: name, price: price, title: title,)));
+      },
+      child: Container(
+        margin: EdgeInsets.all(4),
+        child: Material(
+          elevation: 5.0,
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            padding: EdgeInsets.all(14),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset(
+                  img,
+                  height: 150,
+                  width: 150,
+                  fit: BoxFit.cover,
+                ),
+                Text(
+                  name,
+                  style: AppWidget.semiBoldTextFieldStyle(),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  title,
+                  style: AppWidget.LightTextFieldStyle(),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Text(
+                  price,
+                  style: AppWidget.semiBoldTextFieldStyle(),
+                )
+              ],
+            ),
           ),
         ),
       ),

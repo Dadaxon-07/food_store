@@ -5,6 +5,12 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
+apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+
+
 android {
     namespace = "com.example.food_store"
     compileSdk = flutter.compileSdkVersion
@@ -24,7 +30,7 @@ android {
         applicationId = "com.example.food_store"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        minSdk = 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -42,3 +48,11 @@ android {
 flutter {
     source = "../.."
 }
+
+dependencies {
+    implementation(platform("org.jebrains,kotlin-stblib-jdk7:$kotlin_version"))
+    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
+
+
+}
+

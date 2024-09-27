@@ -1,15 +1,50 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:food_store/pages/signup.dart';
-import 'package:food_store/widget/widget_support.dart';
+import 'package:food_store/pages/login.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+import '../widget/widget_support.dart';
+
+class Signup extends StatefulWidget {
+  const Signup({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _LoginState extends State<Login> {
+class _SignupState extends State<Signup> {
+  String email = "", password = "", name = "";
+  TextEditingController namecontroller = new TextEditingController();
+
+  TextEditingController passwordcontroller = new TextEditingController();
+
+  TextEditingController mailcontroller = new TextEditingController();
+
+  registration() async {
+    if(password!=null){
+      try{
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.orangeAccent,
+            content: Text("Registered  Succesfully", style: TextStyle(fontSize: 20),)));
+      } on FirebaseException catch(e){
+        if(e.code == "weak-password"){
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              backgroundColor: Colors.orangeAccent,
+              content: Text("Password Provided is too weak", style: TextStyle(fontSize: 18),)));
+        }
+        else if (e.code == "email-alread-in-use"){
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.orangeAccent,
+              content: Text("Account already exsists", style: TextStyle(fontSize: 18),)))
+        }
+      }
+    }
+
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,14 +59,12 @@ class _LoginState extends State<Login> {
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: [
-                    Colors.red,
-                    Color.fromRGBO(178, 15, 15, 1.0),
-                  ])),
+                      colors: [ Colors.red,
+                        Color.fromRGBO(178, 15, 15, 1.0),])),
             ),
             Container(
               margin:
-                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
+              EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 2,
               decoration: BoxDecoration(
@@ -47,10 +80,10 @@ class _LoginState extends State<Login> {
                 children: [
                   Center(
                       child: Image.asset(
-                    "images/logo.png",
-                    width: MediaQuery.of(context).size.width / 1.5,
-                    fit: BoxFit.cover,
-                  )),
+                        "images/logo.png",
+                        width: MediaQuery.of(context).size.width / 1.5,
+                        fit: BoxFit.cover,
+                      )),
                   SizedBox(
                     height: 50,
                   ),
@@ -60,7 +93,7 @@ class _LoginState extends State<Login> {
                     child: Container(
                       padding: EdgeInsets.only(left: 20, right: 20),
                       width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height / 2,
+                      height: MediaQuery.of(context).size.height / 1.8,
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
@@ -70,10 +103,20 @@ class _LoginState extends State<Login> {
                             height: 30,
                           ),
                           Text(
-                            "Login",
+                            "Sign up",
                             style: AppWidget.HeadlineTextFieldStyle(),
                           ),
                           TextField(
+                            decoration: InputDecoration(
+                                hintText: "Name",
+                                hintStyle: AppWidget.semiBoldTextFieldStyle(),
+                                prefixIcon: Icon(Icons.person_outlined)),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          TextField(
+                            obscureText: true,
                             decoration: InputDecoration(
                                 hintText: "Email",
                                 hintStyle: AppWidget.semiBoldTextFieldStyle(),
@@ -89,15 +132,7 @@ class _LoginState extends State<Login> {
                                 hintStyle: AppWidget.semiBoldTextFieldStyle(),
                                 prefixIcon: Icon(Icons.password_outlined)),
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                              alignment: Alignment.topRight,
-                              child: Text(
-                                "Forgot password",
-                                style: AppWidget.semiBoldTextFieldStyle(),
-                              )),
+
                           SizedBox(
                             height: 80,
                           ),
@@ -112,7 +147,7 @@ class _LoginState extends State<Login> {
                                   borderRadius: BorderRadius.circular(20)),
                               child: Center(
                                 child: Text(
-                                  "LOGIN",
+                                  "SIGN UP",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 18,
@@ -130,12 +165,11 @@ class _LoginState extends State<Login> {
                     height: 50,
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Signup()));
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Login()));
                     },
                     child: Text(
-                      "Alread have an account? Sign Up",
+                      "Alread have an account? Login",
                       style: AppWidget.semiBoldTextFieldStyle(),
                     ),
                   )

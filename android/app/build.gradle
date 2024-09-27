@@ -5,12 +5,6 @@ plugins {
     id "dev.flutter.flutter-gradle-plugin"
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
-
 android {
     namespace = "com.example.food_store"
     compileSdk = flutter.compileSdkVersion
@@ -49,10 +43,4 @@ flutter {
     source = "../.."
 }
 
-dependencies {
-    implementation(platform("org.jebrains,kotlin-stblib-jdk7:$kotlin_version"))
-    implementation(platform("com.google.firebase:firebase-bom:33.3.0"))
-
-
-}
 

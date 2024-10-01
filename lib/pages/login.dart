@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:food_store/pages/home_page.dart';
 import 'package:food_store/pages/signup.dart';
 import 'package:food_store/widget/widget_support.dart';
+
+import '../service/auth_service.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -10,6 +14,23 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  void signInuser() {
+    String email = _emailController.text.trim().toString();
+    String password = _passwordController.text.trim().toString();
+
+    AuthService.signInUser(email, password).then((value) =>{
+      responsesignIn(value!)
+    });
+  }
+
+  responsesignIn(User firebaseUser) {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
+      return HomePage();
+    }));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,20 +125,23 @@ class _LoginState extends State<Login> {
                           Material(
                             elevation: 5,
                             borderRadius: BorderRadius.circular(20),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              width: 200,
-                              decoration: BoxDecoration(
-                                  color: Color(0xffff5722),
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Center(
-                                child: Text(
-                                  "LOGIN",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontFamily: "Poppins",
-                                      fontWeight: FontWeight.bold),
+                            child: InkWell(
+                              onTap: signInuser,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                width: 200,
+                                decoration: BoxDecoration(
+                                    color: Color(0xffff5722),
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Center(
+                                  child: Text(
+                                    "LOGIN",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontFamily: "Poppins",
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ),
                             ),

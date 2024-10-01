@@ -1,7 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:food_store/detal.dart';
 
 import 'package:food_store/widget/widget_support.dart';
+
+import '../modal/post_modal.dart';
+import '../service/rtdb_service.dart';
+import 'details_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,72 +17,39 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool icercream = false, pizza = false, salad = false, burger = false;
+  List<Post> items = [];
+  _apiPostList() async {
+    var list = await RTDBService.getPosts();
+    items.clear();
+    setState(() {
+      items = list;
+    });
+  }
+
+  void createPostTo() {
+    Navigator.push(context, MaterialPageRoute(builder: (_) {
+      return DetailsPage();
+    }));
+    _apiPostList();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _apiPostList();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        margin: EdgeInsets.only(top: 50.0, left: 10.0, right: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Hello Dadaxon", style: AppWidget.boldTextFieldStyle()),
-                Container(
-                  margin: EdgeInsets.only(right: 20),
-                  padding: EdgeInsets.all(3),
-                  decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Icon(
-                    Icons.shopping_cart,
-                    color: Colors.white,
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            Text("Delicious Food", style: AppWidget.HeadlineTextFieldStyle()),
-            Text("Discover and Greta Food",
-                style: AppWidget.LightTextFieldStyle()),
-            SizedBox(
-              height: 20,
-            ),
-            Container(margin: EdgeInsets.only(right: 20), child: showItem()),
-            SizedBox(
-              height: 30,
-            ),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  food(
-                      img: "images/salad2.png",
-                      name: "Veggie Taco Hash",
-                      title: "Fresh and Healthy",
-                      price: "\$25"),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  food(
-                      img: "images/salad2.png",
-                      name: "Mix Veg Salad",
-                      title: "spicy with Oninon",
-                      price: "\$28"),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 39,
-            ),
-            Container(
-              margin: EdgeInsets.only(right: 20, ),
-              child: Material(
+      body: ListView.builder(
+        itemCount: items.length,
+        itemBuilder: (context, index) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Material(
                 elevation: 5,
                 borderRadius: BorderRadius.circular(20),
                 child: Container(
@@ -94,149 +67,66 @@ class _HomePageState extends State<HomePage> {
                       Column(
                         children: [
                           Container(
-                            width:  MediaQuery.of(context).size.width/2,
+                              width: MediaQuery.of(context).size.width / 2,
                               child: Text(
-                            "Mediterranean Chispean Salad",
-                            style: AppWidget.semiBoldTextFieldStyle(),
-                          )),
-                          SizedBox(height: 5,),
+                                items[index].name!,
+                                style: AppWidget.semiBoldTextFieldStyle(),
+                              )),
+                          SizedBox(
+                            height: 5,
+                          ),
                           Container(
-                            width:  MediaQuery.of(context).size.width/2,
+                              width: MediaQuery.of(context).size.width / 2,
                               child: Text(
-                            "Honey goot cheese",
-                            style: AppWidget.LightTextFieldStyle(),
-                          )), SizedBox(height: 5,),
+                                items[index].title!,
+                                style: AppWidget.LightTextFieldStyle(),
+                              )),
+                          SizedBox(
+                            height: 5,
+                          ),
                           Container(
-                            width:  MediaQuery.of(context).size.width/2,
+                              width: MediaQuery.of(context).size.width / 2,
                               child: Text(
-                            "\$30",
-                            style: AppWidget.semiBoldTextFieldStyle(),
-                          )),
+                                items[index].price!,
+                                style: AppWidget.semiBoldTextFieldStyle(),
+                              )),
                         ],
                       )
                     ],
                   ),
                 ),
               ),
-            )
-          ],
-        ),
+            ],
+          );
+        },
       ),
-    );
-  }
-
-  Widget showItem() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        GestureDetector(
-          onTap: () {
-            icercream = true;
-            pizza = false;
-            salad = false;
-            burger = false;
-            setState(() {});
-          },
-          child: Material(
-              elevation: 5.0,
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: icercream ? Colors.black : Colors.white,
-                    borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.all(8),
-                child: Image.asset(
-                  "images/ice-cream.png",
-                  color: icercream ? Colors.white : Colors.black,
-                  height: 45,
-                  width: 45,
-                  fit: BoxFit.cover,
-                ),
-              )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return DetailsPage();
+          }));
+        },
+        child: Icon(
+          Icons.add_outlined,
+          color: Colors.white,
         ),
-        GestureDetector(
-          onTap: () {
-            icercream = false;
-            pizza = true;
-            salad = false;
-            burger = false;
-            setState(() {});
-          },
-          child: Material(
-              elevation: 5.0,
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: pizza ? Colors.black : Colors.white,
-                    borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.all(8),
-                child: Image.asset(
-                  "images/pizza.png",
-                  color: pizza ? Colors.white : Colors.black,
-                  height: 45,
-                  width: 45,
-                  fit: BoxFit.cover,
-                ),
-              )),
-        ),
-        GestureDetector(
-          onTap: () {
-            icercream = false;
-            pizza = false;
-            salad = true;
-            burger = false;
-            setState(() {});
-          },
-          child: Material(
-              elevation: 5.0,
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: salad ? Colors.black : Colors.white,
-                    borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.all(8),
-                child: Image.asset(
-                  "images/salad.png",
-                  color: salad ? Colors.white : Colors.black,
-                  height: 45,
-                  width: 45,
-                  fit: BoxFit.cover,
-                ),
-              )),
-        ),
-        GestureDetector(
-          onTap: () {
-            icercream = false;
-            pizza = false;
-            salad = false;
-            burger = true;
-            setState(() {});
-          },
-          child: Material(
-              elevation: 5.0,
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                decoration: BoxDecoration(
-                    color: burger ? Colors.black : Colors.white,
-                    borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.all(8),
-                child: Image.asset(
-                  "images/burger.png",
-                  color: burger ? Colors.white : Colors.black,
-                  height: 45,
-                  width: 45,
-                  fit: BoxFit.cover,
-                ),
-              )),
-        ),
-      ],
+        backgroundColor: Colors.black,
+      ),
     );
   }
 
   Widget food({img, name, title, price}) {
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailsPage(image: img, name: name, price: price, title: title,)));
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailsPage2(
+                      image: img,
+                      name: name,
+                      price: price,
+                      title: title,
+                    )));
       },
       child: Container(
         margin: EdgeInsets.all(4),
@@ -254,16 +144,55 @@ class _HomePageState extends State<HomePage> {
                   width: 150,
                   fit: BoxFit.cover,
                 ),
-                Text(
-                  name,
-                  style: AppWidget.semiBoldTextFieldStyle(),
-                ),
                 SizedBox(
                   height: 5,
                 ),
-                Text(
-                  title,
-                  style: AppWidget.LightTextFieldStyle(),
+                Material(
+                  elevation: 5,
+                  borderRadius: BorderRadius.circular(20),
+                  child: Container(
+                    padding: EdgeInsets.all(5),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          "images/salad2.png",
+                          height: 120,
+                          width: 120,
+                          fit: BoxFit.cover,
+                        ),
+                        SizedBox(width: 20),
+                        Column(
+                          children: [
+                            Container(
+                                width: MediaQuery.of(context).size.width / 2,
+                                child: Text(
+                                  name,
+                                  style: AppWidget.semiBoldTextFieldStyle(),
+                                )),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                                width: MediaQuery.of(context).size.width / 2,
+                                child: Text(
+                                  title,
+                                  style: AppWidget.LightTextFieldStyle(),
+                                )),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                                width: MediaQuery.of(context).size.width / 2,
+                                child: Text(
+                                  price,
+                                  style: AppWidget.semiBoldTextFieldStyle(),
+                                )),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 5,

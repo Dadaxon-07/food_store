@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:food_store/widget/widget_support.dart';
 
-class DetailsPage extends StatefulWidget {
+class DetailsPage2 extends StatefulWidget {
   String image;
   String name;
   String price;
   String title;
 
-  DetailsPage({
+  DetailsPage2({
     super.key,
     required this.image,
     required this.name,
@@ -16,10 +16,10 @@ class DetailsPage extends StatefulWidget {
   });
 
   @override
-  State<DetailsPage> createState() => _DetailsPageState();
+  State<DetailsPage2> createState() => _DetailsPageState();
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _DetailsPageState extends State<DetailsPage2> {
   int a = 1;
 
   @override

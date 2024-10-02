@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:food_store/detal.dart';
 
@@ -44,60 +42,61 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
+        scrollDirection: Axis.vertical,
         itemCount: items.length,
         itemBuilder: (context, index) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Material(
-                elevation: 5,
-                borderRadius: BorderRadius.circular(20),
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        "images/salad2.png",
-                        height: 120,
-                        width: 120,
-                        fit: BoxFit.cover,
-                      ),
-                      SizedBox(width: 20),
-                      Column(
-                        children: [
-                          Container(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: Text(
-                                items[index].name!,
-                                style: AppWidget.semiBoldTextFieldStyle(),
-                              )),
-                          SizedBox(
-                            height: 5,
+          return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Container(
+                padding: EdgeInsets.only(right: 18, left: 30),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        offset: const Offset(
+                          3.0,
+                          3.0,
+                        ),
+                        blurRadius: 10.0,
+                        spreadRadius: 1.0,
+                      ), //BoxShadow
+                      BoxShadow(
+                        color: Colors.white,
+                        offset: const Offset(0.0, 0.0),
+                        blurRadius: 0.0,
+                        spreadRadius: 0.0,
+                      ), //BoxS
+                    ]),
+                margin: EdgeInsets.only(top: 30, left: 30, right: 30),
+                width: 350,
+                height: 200,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        Center(
+                          child: Text(
+                            items[index].name!,
+                            style: AppWidget.semiBoldTextFieldStyle(),
                           ),
-                          Container(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: Text(
-                                items[index].title!,
-                                style: AppWidget.LightTextFieldStyle(),
-                              )),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Container(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: Text(
-                                items[index].price!,
-                                style: AppWidget.semiBoldTextFieldStyle(),
-                              )),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          );
+                        ),
+                        Text(
+                          items[index].title!,
+                        ),
+                      ],
+                    ),
+                    Center(
+                        child: Image.asset(
+                      "images/salad2.png",
+                      height: 150,
+                      width: 150,
+                    ))
+                  ],
+                )),
+          ]);
         },
       ),
       floatingActionButton: FloatingActionButton(

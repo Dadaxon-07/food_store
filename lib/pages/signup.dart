@@ -121,7 +121,7 @@ class _SignupState extends State<Signup> {
                               }
                               return null;
                             },
-                            obscureText: true,
+                            obscureText: false,
                             decoration: InputDecoration(
                                 hintText: "Email",
                                 hintStyle: AppWidget.semiBoldTextFieldStyle(),

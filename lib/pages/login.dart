@@ -95,6 +95,7 @@ class _LoginState extends State<Login> {
                             style: AppWidget.HeadlineTextFieldStyle(),
                           ),
                           TextField(
+                            controller: _emailController,
                             decoration: InputDecoration(
                                 hintText: "Email",
                                 hintStyle: AppWidget.semiBoldTextFieldStyle(),
@@ -104,6 +105,7 @@ class _LoginState extends State<Login> {
                             height: 30,
                           ),
                           TextField(
+                            controller: _passwordController,
                             obscureText: true,
                             decoration: InputDecoration(
                                 hintText: "Password",

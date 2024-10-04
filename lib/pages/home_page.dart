@@ -1,5 +1,8 @@
+import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:food_store/detal.dart';
+import 'package:food_store/pages/Salad.dart';
+import 'package:food_store/pages/url_service.dart';
 
 import 'package:food_store/widget/widget_support.dart';
 
@@ -8,6 +11,7 @@ import '../service/rtdb_service.dart';
 import 'details_page.dart';
 
 class HomePage extends StatefulWidget {
+  static final String id = "Home";
   const HomePage({super.key});
 
   @override
@@ -16,6 +20,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Post> items = [];
+  bool isClicked = false;
   _apiPostList() async {
     var list = await RTDBService.getPosts();
     items.clear();
@@ -41,75 +46,66 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        scrollDirection: Axis.vertical,
-        itemCount: items.length,
-        itemBuilder: (context, index) {
-          return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Container(
-                padding: EdgeInsets.only(right: 18, left: 30),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey,
-                        offset: const Offset(
-                          3.0,
-                          3.0,
-                        ),
-                        blurRadius: 10.0,
-                        spreadRadius: 1.0,
-                      ), //BoxShadow
-                      BoxShadow(
-                        color: Colors.white,
-                        offset: const Offset(0.0, 0.0),
-                        blurRadius: 0.0,
-                        spreadRadius: 0.0,
-                      ), //BoxS
-                    ]),
-                margin: EdgeInsets.only(top: 30, left: 30, right: 30),
-                width: 350,
-                height: 200,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      children: [
-                        Center(
-                          child: Text(
-                            items[index].name!,
-                            style: AppWidget.semiBoldTextFieldStyle(),
-                          ),
-                        ),
-                        Text(
-                          items[index].title!,
-                        ),
-                      ],
+      backgroundColor: Color.fromRGBO(36, 36, 47, 1.0),
+      body: SafeArea(
+        bottom: true,
+        child: DefaultTabController(
+          length: 4,
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 10,
+              ),
+              ButtonsTabBar(
+                  labelSpacing: 7,
+                  duration: 250,
+                  width: 100,
+                  backgroundColor: Colors.black,
+                  unselectedBackgroundColor: Colors.white60,
+                  unselectedLabelStyle: TextStyle(color: Colors.black),
+                  labelStyle: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 17),
+                  tabs: [
+                    Tab(
+                      icon: Icon(Icons.fastfood),
+                      text: "Taom",
+                    ),
+                    Tab(
+                      icon: Icon(Icons.no_food_sharp),
+                      text: "Salad",
+                    ),
+                    Tab(
+                      icon: Icon(Icons.emoji_food_beverage),
+                      text: "Ichimlik",
+                    ),
+                    Tab(
+                      icon: Icon(Icons.delete_sweep),
+                      text: "Shirinlik",
+                    ),
+                  ],
+                ),
+
+              Expanded(
+                child: TabBarView(
+                  children: <Widget>[
+                    Center(child: Salad()),
+                    Center(
+                      child: Icon(Icons.directions_transit),
                     ),
                     Center(
-                        child: Image.asset(
-                      "images/salad2.png",
-                      height: 150,
-                      width: 150,
-                    ))
+                      child: Icon(Icons.directions_bike),
+                    ),
+                    Center(
+                      child: Icon(Icons.directions_car),
+                    ),
                   ],
-                )),
-          ]);
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return DetailsPage();
-          }));
-        },
-        child: Icon(
-          Icons.add_outlined,
-          color: Colors.white,
+                ),
+              ),
+            ],
+          ),
         ),
-        backgroundColor: Colors.black,
       ),
     );
   }

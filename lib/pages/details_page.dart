@@ -1,8 +1,14 @@
+
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:food_store/modal/post_modal.dart';
 import 'package:food_store/pages/home_page.dart';
 
 import 'package:food_store/service/rtdb_service.dart';
+import 'package:food_store/service/storage_service.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../widget/widget_support.dart';
 
@@ -20,17 +26,39 @@ class _DetailsPageState extends State<DetailsPage> {
   final _taominfo = TextEditingController();
   final _taomnarhi = TextEditingController();
 
+    File? _image;
+    final picker = ImagePicker();
+
+    Future _getImage() async{
+      final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+      setState(() {
+        if(pickedFile!=null){
+          _image = File(pickedFile.path);
+        }
+        else{
+          print("No image selected");
+        }
+      });
+    }
+
   _createPost() {
     String ism = _taomismiController.text.trim().toString();
     String info = _taominfo.text.trim().toString();
     String price = _taomnarhi.text.trim().toString();
     if (ism.isNotEmpty && info.isNotEmpty && price.isNotEmpty) {
-      _apiCreatePost(ism, info, price);
+      _apiUploadImage(ism, info, price,);
+
     }
   }
 
-  _apiCreatePost(String ism, String title, String price) {
-    var post = Post(name: ism, title: title, price: price);
+  _apiUploadImage(String ism, String info, String price){
+      StorageService.uploadImage(_image!).then((url)=>{
+        _apiCreatePost(ism, info, price, url)
+      });
+  }
+
+  _apiCreatePost(String ism, String title, String price, String url) {
+    var post = Post(name: ism, title: title, price: price, image_url: url);
     RTDBService.addPost(post).then((value) => {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) {
             return HomePage();
@@ -43,12 +71,14 @@ class _DetailsPageState extends State<DetailsPage> {
     return Scaffold(
       body: ListView(children: [
         Container(
+
           margin: EdgeInsets.all(4),
           child: Material(
             elevation: 5.0,
             borderRadius: BorderRadius.circular(20),
             child: Center(
               child: Container(
+
                 padding: EdgeInsets.all(14),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,17 +90,24 @@ class _DetailsPageState extends State<DetailsPage> {
                       child: Material(
                         elevation: 4.0,
                         borderRadius: BorderRadius.circular(20),
-                        child: Container(
-                          width: 150,
-                          height: 150,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black, width: 1.5),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Center(
-                              child: Icon(Icons.image_outlined),
+                        child: InkWell(
+                          onTap: (){
+                            _getImage();
+                          },
+                          child: Container(
+                            width: 150,
+                            height: 150,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black, width: 1.5),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Center(
+                                child: _image!=null
+                                    ?Image.file(_image!, fit: BoxFit.cover,)
+                                    :Icon(Icons.camera_alt_outlined),
+                              ),
                             ),
                           ),
                         ),

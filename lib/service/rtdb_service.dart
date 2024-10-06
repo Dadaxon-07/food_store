@@ -25,7 +25,7 @@ class RTDBService {
       Map<String, dynamic> map = jsonDecode(jsonPost);
 
       var post = Post(
-          name: map['name'], title: map['title'], price: map['price']);
+          name: map['name'], title: map['title'], price: map['price'], image_url: map['image_url']);
       items.add(post);
     }
     return items;

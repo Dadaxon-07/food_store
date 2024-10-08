@@ -1,22 +1,23 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:food_store/pages/IchimlikDetails.dart';
+import 'package:food_store/pages/ShirinliklarDetails.dart';
 
 import '../modal/post_modal.dart';
 import '../service/rtdb_service.dart';
 import 'details_page.dart';
-
-class Salad extends StatefulWidget {
-  const Salad({super.key});
+class Shirinliklar extends StatefulWidget {
+  const Shirinliklar({super.key});
 
   @override
-  State<Salad> createState() => _SaladState();
+  State<Shirinliklar> createState() => _ShirinliklarState();
 }
 
-class _SaladState extends State<Salad> {
+class _ShirinliklarState extends State<Shirinliklar> {
   List<Post> items = [];
   bool isClicked = false;
   _apiPostList() async {
-    var list = await RTDBService.getPosts();
+    var list = await RTDBService.getSweet();
     items.clear();
     setState(() {
       items = list;
@@ -36,7 +37,6 @@ class _SaladState extends State<Salad> {
     super.initState();
     _apiPostList();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,11 +93,11 @@ class _SaladState extends State<Salad> {
                           kIsWeb
                               ? SizedBox()
                               : IconButton(
-                                  icon: Icon(Icons.delete, color: Colors.red
-                                      // Rangni o'zgartirish
-                                      ),
-                                  onPressed: () {},
-                                ),
+                            icon: Icon(Icons.delete, color: Colors.red
+                              // Rangni o'zgartirish
+                            ),
+                            onPressed: () {},
+                          ),
                         ]),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,10 +121,10 @@ class _SaladState extends State<Salad> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return DetailsPage();
+            return Shirinliklardetails();
           }));
         },
-        child: Image.asset("images/salad.png", height: 40, width: 40,),
+        child: Image.asset("images/sweet.png", height: 40, width: 40,),
         backgroundColor: Color.fromRGBO(36, 36, 47, 1.0),
       ),
     );

@@ -1,22 +1,22 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../modal/post_modal.dart';
 import '../service/rtdb_service.dart';
+import 'IchimlikDetails.dart';
 import 'details_page.dart';
 
-class Salad extends StatefulWidget {
-  const Salad({super.key});
+class Ichimliklar extends StatefulWidget {
+  const Ichimliklar({super.key});
 
   @override
-  State<Salad> createState() => _SaladState();
+  State<Ichimliklar> createState() => _IchimliklarState();
 }
 
-class _SaladState extends State<Salad> {
+class _IchimliklarState extends State<Ichimliklar> {
   List<Post> items = [];
   bool isClicked = false;
   _apiPostList() async {
-    var list = await RTDBService.getPosts();
+    var list = await RTDBService.getIchimlik();
     items.clear();
     setState(() {
       items = list;
@@ -58,8 +58,8 @@ class _SaladState extends State<Salad> {
                   color: Colors.white,
                 ),
                 margin: EdgeInsets.only(top: 30, left: 12, right: 12),
-                width: 400,
-                height: 140,
+                width: 390,
+                height: 240,
               ),
               Container(
                 padding: EdgeInsets.only(right: 12, left: 30),
@@ -70,7 +70,7 @@ class _SaladState extends State<Salad> {
                       bottomLeft: Radius.circular(20)),
                   color: Color.fromARGB(233, 68, 67, 83),
                 ),
-                width: 400,
+                width: 390,
                 height: 90,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -90,14 +90,20 @@ class _SaladState extends State<Salad> {
                                 color: Colors.white,
                                 fontFamily: "Poppins"),
                           ),
-                          kIsWeb
-                              ? SizedBox()
-                              : IconButton(
-                                  icon: Icon(Icons.delete, color: Colors.red
-                                      // Rangni o'zgartirish
-                                      ),
-                                  onPressed: () {},
-                                ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.favorite,
+                              color: isClicked
+                                  ? Colors.red
+                                  : Colors.black, // Rangni o'zgartirish
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                isClicked =
+                                    !isClicked; // Bosilganda holatni o'zgartirish
+                              });
+                            },
+                          ),
                         ]),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,9 +113,7 @@ class _SaladState extends State<Salad> {
                                   fontSize: 18, color: Colors.white60)),
                           Text(items[index].price!,
                               style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white60,
-                                  fontWeight: FontWeight.w600)),
+                                  fontSize: 18, color: Colors.white60)),
                         ])
                   ],
                 ),
@@ -121,10 +125,14 @@ class _SaladState extends State<Salad> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return DetailsPage();
+            return IchimlikDetails();
           }));
         },
-        child: Image.asset("images/salad.png", height: 40, width: 40,),
+        child: Image.asset(
+          "images/suv.png",
+          height: 30,
+          width: 30,
+        ),
         backgroundColor: Color.fromRGBO(36, 36, 47, 1.0),
       ),
     );

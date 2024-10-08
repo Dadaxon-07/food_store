@@ -1,8 +1,6 @@
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:food_store/pages/Salad.dart';
 import 'package:food_store/pages/home_page.dart';
 import 'package:food_store/pages/onboard.dart';
 
@@ -60,7 +58,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: Onboard(),  routes: {
+        home: HomePage(),  routes: {
          HomePage.id:(context)=>HomePage()
 
     },);

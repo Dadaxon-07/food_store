@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_store/pages/Ichimliklar.dart';
 import 'package:food_store/pages/Salad.dart';
-
-import 'details_page.dart';
-
+import 'package:food_store/pages/Shirinliklar.dart';
+import 'package:food_store/pages/taom.dart';
 class HomePage extends StatefulWidget {
   static final String id = "Home";
   @override
@@ -15,7 +15,7 @@ class _ModernTabBarState extends State<HomePage> with SingleTickerProviderStateM
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this); // `this` to'g'ri ishlashi kerak
+    _tabController = TabController(length: 4, vsync: this); // `this` to'g'ri ishlashi kerak
   }
 
   @override
@@ -29,7 +29,6 @@ class _ModernTabBarState extends State<HomePage> with SingleTickerProviderStateM
         backgroundColor: Color.fromRGBO(36, 36, 47, 1.0),
         title: Text('Oilaviy restaran', style: TextStyle(color: Colors.white70),),
         bottom: TabBar(
-
           padding: EdgeInsets.only(top: 3),
           isScrollable: true,
           controller: _tabController,
@@ -39,6 +38,7 @@ class _ModernTabBarState extends State<HomePage> with SingleTickerProviderStateM
           labelColor: Colors.white, // Text color on selected tab
           labelStyle: TextStyle(fontSize: 17.5, fontFamily: "Poppins"),
           unselectedLabelColor: Colors.white54, // Text color on unselected tab
+
           tabs: [
             Tab(
               child: Row(
@@ -87,22 +87,10 @@ class _ModernTabBarState extends State<HomePage> with SingleTickerProviderStateM
         controller: _tabController,
         children: [
          Salad(),
-          Center(child: Text('Explore Tab')),
-          Center(child: Text('Explore Tab')),
-          Salad(),
+         Ichimliklar(),
+          Taom(),
+         Shirinliklar()
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return DetailsPage();
-          }));
-        },
-        child: Icon(
-          Icons.add_outlined,
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.black,
       ),
     );
   }

@@ -1,22 +1,23 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:food_store/pages/taom_details.dart';
 
 import '../modal/post_modal.dart';
 import '../service/rtdb_service.dart';
 import 'details_page.dart';
 
-class Salad extends StatefulWidget {
-  const Salad({super.key});
+class Taom extends StatefulWidget {
+  const Taom({super.key});
 
   @override
-  State<Salad> createState() => _SaladState();
+  State<Taom> createState() => _TaomState();
 }
 
-class _SaladState extends State<Salad> {
+class _TaomState extends State<Taom> {
   List<Post> items = [];
   bool isClicked = false;
   _apiPostList() async {
-    var list = await RTDBService.getPosts();
+    var list = await RTDBService.getFood();
     items.clear();
     setState(() {
       items = list;
@@ -93,11 +94,11 @@ class _SaladState extends State<Salad> {
                           kIsWeb
                               ? SizedBox()
                               : IconButton(
-                                  icon: Icon(Icons.delete, color: Colors.red
-                                      // Rangni o'zgartirish
-                                      ),
-                                  onPressed: () {},
-                                ),
+                            icon: Icon(Icons.delete, color: Colors.red
+                              // Rangni o'zgartirish
+                            ),
+                            onPressed: () {},
+                          ),
                         ]),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,10 +122,10 @@ class _SaladState extends State<Salad> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return DetailsPage();
+            return TaomDetails();
           }));
         },
-        child: Image.asset("images/salad.png", height: 40, width: 40,),
+        child: Image.asset("images/food.png", height: 40, width: 40,),
         backgroundColor: Color.fromRGBO(36, 36, 47, 1.0),
       ),
     );

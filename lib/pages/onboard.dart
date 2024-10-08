@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_store/pages/contet_modal.dart';
+import 'package:food_store/pages/home_page.dart';
 import 'package:food_store/pages/signup.dart';
 import 'package:food_store/widget/widget_support.dart';
 
@@ -83,7 +84,7 @@ class _OnboardState extends State<Onboard> {
           ),
           GestureDetector(onTap: (){
             if(currentIndex == content.length-1){
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Signup()));
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HomePage()));
             }
             _controller.nextPage(duration: Duration(microseconds: 100), curve: Curves.bounceIn);
           },

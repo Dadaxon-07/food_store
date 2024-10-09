@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:food_store/pages/IchimlikDetails.dart';
+
 import 'package:food_store/pages/ShirinliklarDetails.dart';
 
 import '../modal/post_modal.dart';

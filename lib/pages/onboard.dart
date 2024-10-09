@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_store/pages/contet_modal.dart';
 import 'package:food_store/pages/home_page.dart';
-import 'package:food_store/pages/signup.dart';
+
 import 'package:food_store/widget/widget_support.dart';
 
 class Onboard extends StatefulWidget {

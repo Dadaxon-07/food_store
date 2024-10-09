@@ -3,31 +3,62 @@ import 'package:food_store/pages/Ichimliklar.dart';
 import 'package:food_store/pages/Salad.dart';
 import 'package:food_store/pages/Shirinliklar.dart';
 import 'package:food_store/pages/taom.dart';
+
 class HomePage extends StatefulWidget {
   static final String id = "Home";
   @override
   _ModernTabBarState createState() => _ModernTabBarState();
 }
 
-class _ModernTabBarState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _ModernTabBarState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this); // `this` to'g'ri ishlashi kerak
+    _tabController =
+        TabController(length: 4, vsync: this); // `this` to'g'ri ishlashi kerak
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(backgroundColor: Colors.white54,),
+      drawer: Drawer(
+        backgroundColor: Colors.white54,
+      ),
       appBar: AppBar(
         centerTitle: true,
         toolbarHeight: 50,
         iconTheme: IconThemeData(color: Colors.white70),
-        backgroundColor: Color.fromRGBO(36, 36, 47, 1.0),
-        title: Text('Oilaviy restaran', style: TextStyle(color: Colors.white70),),
+        backgroundColor: Color.fromRGBO(102, 26, 189, 1.0),
+        title: Row(children: [
+          Text(
+            'Oilaviy restoran',
+            style: TextStyle(color: Colors.white70),
+          ),
+          Image.asset(
+            "images/food_icon.png",
+            height: 50,
+            width: 50,
+            fit: BoxFit.cover,
+            color: Colors.white70,
+          ),
+          SizedBox(
+            width: 50,
+          ),
+          Container(
+            height: 35,
+            width: 40,
+            decoration: BoxDecoration(
+                color: Colors.white54, borderRadius: BorderRadius.circular(10)),
+            child: Center(
+                child: Text(
+              "ru",
+              style: TextStyle(color: Colors.white),
+            )),
+          )
+        ]),
         bottom: TabBar(
           padding: EdgeInsets.only(top: 3),
           isScrollable: true,
@@ -43,7 +74,12 @@ class _ModernTabBarState extends State<HomePage> with SingleTickerProviderStateM
             Tab(
               child: Row(
                 children: [
-                 Image.asset("images/salad.png",  height: 40, width: 35, fit: BoxFit.cover,),
+                  Image.asset(
+                    "images/salad.png",
+                    height: 40,
+                    width: 35,
+                    fit: BoxFit.cover,
+                  ),
                   SizedBox(width: 13),
                   Text('Saladlar'),
                 ],
@@ -53,7 +89,12 @@ class _ModernTabBarState extends State<HomePage> with SingleTickerProviderStateM
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("images/suv.png", height: 40, width: 35, fit: BoxFit.cover,),
+                  Image.asset(
+                    "images/suv.png",
+                    height: 40,
+                    width: 35,
+                    fit: BoxFit.cover,
+                  ),
                   SizedBox(width: 10),
                   Text('Ichimliklar'),
                 ],
@@ -63,7 +104,12 @@ class _ModernTabBarState extends State<HomePage> with SingleTickerProviderStateM
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("images/food.png", height: 40, width: 35, fit: BoxFit.cover,),
+                  Image.asset(
+                    "images/food.png",
+                    height: 40,
+                    width: 35,
+                    fit: BoxFit.cover,
+                  ),
                   SizedBox(width: 13),
                   Text('Taomlar'),
                 ],
@@ -73,24 +119,23 @@ class _ModernTabBarState extends State<HomePage> with SingleTickerProviderStateM
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("images/sweet.png", height: 40, width: 35, fit: BoxFit.cover,),
+                  Image.asset(
+                    "images/sweet.png",
+                    height: 40,
+                    width: 35,
+                    fit: BoxFit.cover,
+                  ),
                   SizedBox(width: 10),
                   Text('Shirinliklar'),
                 ],
               ),
             ),
-
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
-         Salad(),
-         Ichimliklar(),
-          Taom(),
-         Shirinliklar()
-        ],
+        children: [Salad(), Ichimliklar(), Taom(), Shirinliklar()],
       ),
     );
   }

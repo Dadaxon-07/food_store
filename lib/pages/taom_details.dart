@@ -110,7 +110,7 @@ class _TaomDetailsState extends State<TaomDetails> {
                     ),
                     SizedBox(height: 20),
                     Text(
-                      "Ichimlik nomi",
+                      "Taom nomi",
                       style: AppWidget.semiBoldTextFieldStyle(),
                     ),
                     SizedBox(
@@ -126,13 +126,13 @@ class _TaomDetailsState extends State<TaomDetails> {
                         controller: _taomismiController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Ichimlik nomini kiriting",
+                            hintText: "Taom nomini kiriting",
                             hintStyle: AppWidget.LightTextFieldStyle()),
                       ),
                     ),
                     SizedBox(height: 30),
                     Text(
-                      "Ichimlik Narhi",
+                      "Taom Narhi",
                       style: AppWidget.semiBoldTextFieldStyle(),
                     ),
                     SizedBox(
@@ -148,13 +148,13 @@ class _TaomDetailsState extends State<TaomDetails> {
                         controller: _taomnarhi,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Ichimlik narhini yozing",
+                            hintText: "Taom narhini yozing",
                             hintStyle: AppWidget.LightTextFieldStyle()),
                       ),
                     ),
                     SizedBox(height: 30),
                     Text(
-                      "Ichimlik haqida",
+                      "Taom haqida",
                       style: AppWidget.semiBoldTextFieldStyle(),
                     ),
                     SizedBox(
@@ -171,7 +171,7 @@ class _TaomDetailsState extends State<TaomDetails> {
                         controller: _taominfo,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Ichimlik haqida yozing",
+                            hintText: "Taom haqida yozing",
                             hintStyle: AppWidget.LightTextFieldStyle()),
                       ),
                     ),
@@ -189,7 +189,7 @@ class _TaomDetailsState extends State<TaomDetails> {
                               borderRadius: BorderRadius.circular(20)),
                           child: Center(
                             child: Text(
-                              "Ichimlik qo'shish",
+                              "Taom qo'shish",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,

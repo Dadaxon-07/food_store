@@ -40,81 +40,66 @@ class _ShirinliklarState extends State<Shirinliklar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(36, 36, 47, 1.0),
+      backgroundColor: Colors.white,
       body: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: items.length,
         itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(items[index].image_url!),
-                      fit: BoxFit.cover),
-                  borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      topLeft: Radius.circular(20)),
-                  color: Colors.white,
-                ),
-                margin: EdgeInsets.only(top: 30, left: 12, right: 12),
-                width: 400,
-                height: 140,
-              ),
-              Container(
-                padding: EdgeInsets.only(right: 12, left: 30),
-                margin: EdgeInsets.only(left: 12, right: 12),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
+          return Container(
+            margin: EdgeInsets.only(top: 10, left: 8, right: 8),
+            color: Colors.white70,
+            child: Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(items[index].image_url!),
+                        fit: BoxFit.cover),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
                       bottomRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(20)),
-                  color: Color.fromARGB(233, 68, 67, 83),
+                      topRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                    ),
+                    color: Colors.white,
+                  ),
+                  margin: EdgeInsets.only(
+                      top: 20,
+                      left: 8
+                  ),
+                  width: 165,
+                  height: 163,
                 ),
-                width: 400,
-                height: 90,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                SizedBox(width: 20,),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 5,
+                    Text(
+                      items[index].name!,
+                      style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.black,
+                          fontFamily: "Poppins", fontWeight: FontWeight.w800),
                     ),
+                    SizedBox(height: 10,),
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            items[index].name!,
+                        children:[ Text(items[index].title!,
                             style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.white,
-                                fontFamily: "Poppins"),
-                          ),
-                          kIsWeb
-                              ? SizedBox()
-                              : IconButton(
-                            icon: Icon(Icons.delete, color: Colors.red
-                              // Rangni o'zgartirish
-                            ),
-                            onPressed: () {},
-                          ),
-                        ]),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(items[index].title!,
-                              style: TextStyle(
-                                  fontSize: 18, color: Colors.white60)),
-                          Text(items[index].price!,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.white60,
-                                  fontWeight: FontWeight.w600)),
-                        ])
+                              fontSize: 14, color: Colors.black, fontFamily: "Poppins", )),
+
+                        ] ),
+                    SizedBox(height: 40,),
+                    Text(items[index].price!,
+                        style: TextStyle(
+                            fontSize: 17.5,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600)),
+                    SizedBox(height: 5,)
+
                   ],
-                ),
-              ),
-            ],
+                )
+              ],
+            ),
           );
         },
       ),

@@ -3,6 +3,7 @@ import 'package:food_store/pages/Ichimliklar.dart';
 import 'package:food_store/pages/Salad.dart';
 import 'package:food_store/pages/Shirinliklar.dart';
 import 'package:food_store/pages/taom.dart';
+import 'package:food_store/pages/url_service.dart';
 
 class HomePage extends StatefulWidget {
   static final String id = "Home";
@@ -24,8 +25,59 @@ class _ModernTabBarState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        backgroundColor: Colors.white54,
+      drawer: SafeArea(
+        child: Container(
+          child: ListTileTheme(
+            textColor: Colors.white,
+            iconColor: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 150,),
+                ListTile(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, HomePage.id);
+                  },
+                  leading: Icon(Icons.home),
+                  title: Text('Home'),
+                ),
+                ListTile(
+                  onTap: () {
+                    UrlService.makePhoneCall("+998883800910");
+                  },
+                  leading: Icon(Icons.phone_callback_sharp),
+                  title: Text('Phone Number'),
+                ),
+                ListTile(
+                  onTap: () {
+                    UrlService.launchInBrauther(Uri.parse("https://github.com/Alibek1101"));
+                  },
+                  leading: Icon(Icons.location_pin),
+                  title: Text('Location'),
+                ),
+                ListTile(
+                  onTap: () {},
+                  leading: Icon(Icons.settings),
+                  title: Text('Settings'),
+                ),
+                Spacer(),
+                DefaultTextStyle(
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white54,
+                  ),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 15,
+                      vertical: 16.0,
+                    ),
+                    child: Text('Terms of Service | Privacy Policy'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       appBar: AppBar(
         centerTitle: true,

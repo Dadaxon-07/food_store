@@ -10,13 +10,14 @@ Future<void> main() async {
   if (kIsWeb) {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
-            apiKey: "AIzaSyCR9RbRr9E0hr_HJhLSVa9I3PO98UDC6JY",
-            authDomain: "fir-demo-22ede.firebaseapp.com",
-            databaseURL: "https://fir-demo-22ede-default-rtdb.firebaseio.com",
-            projectId: "fir-demo-22ede",
-            storageBucket: "fir-demo-22ede.appspot.com",
-            messagingSenderId: "1007714631616",
-            appId: "1:1007714631616:web:4424f7138c866db73c9225"));
+            apiKey: "AIzaSyCBm8QMsXtpKV40md2PDnRO7y579xQKHoc",
+            authDomain: "foodstore-c4511.firebaseapp.com",
+            databaseURL: "https://foodstore-c4511-default-rtdb.firebaseio.com",
+            projectId: "foodstore-c4511",
+            storageBucket: "foodstore-c4511.appspot.com",
+            messagingSenderId: "670479317583",
+            appId: "1:670479317583:web:d3e0b27905455976b7c83a",
+            measurementId: "G-HGEV4LNRE3"));
   }else {
     await Firebase.initializeApp(
         options: const FirebaseOptions(

@@ -115,7 +115,7 @@ class _DetailsPageState extends State<DetailsPage> {
                     ),
                     SizedBox(height: 20),
                     Text(
-                      "Taom nomi",
+                      "Salad nomi",
                       style: AppWidget.semiBoldTextFieldStyle(),
                     ),
                     SizedBox(
@@ -131,13 +131,13 @@ class _DetailsPageState extends State<DetailsPage> {
                         controller: _taomismiController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Taom nomi",
+                            hintText: "Salad nomini yozing",
                             hintStyle: AppWidget.LightTextFieldStyle()),
                       ),
                     ),
                     SizedBox(height: 30),
                     Text(
-                      "Taom Narhi",
+                      "Salad Narhi",
                       style: AppWidget.semiBoldTextFieldStyle(),
                     ),
                     SizedBox(
@@ -153,13 +153,13 @@ class _DetailsPageState extends State<DetailsPage> {
                         controller: _taomnarhi,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Taom narhini yozing",
+                            hintText: "Salad narhini yozing",
                             hintStyle: AppWidget.LightTextFieldStyle()),
                       ),
                     ),
                     SizedBox(height: 30),
                     Text(
-                      "Taom haqida",
+                      "Salad haqida",
                       style: AppWidget.semiBoldTextFieldStyle(),
                     ),
                     SizedBox(
@@ -176,7 +176,7 @@ class _DetailsPageState extends State<DetailsPage> {
                         controller: _taominfo,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "Taom haqida yozing",
+                            hintText: "Salad haqida yozing",
                             hintStyle: AppWidget.LightTextFieldStyle()),
                       ),
                     ),
@@ -194,7 +194,7 @@ class _DetailsPageState extends State<DetailsPage> {
                               borderRadius: BorderRadius.circular(20)),
                           child: Center(
                             child: Text(
-                              "Taom qo'shish",
+                              "Salad qo'shish",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,

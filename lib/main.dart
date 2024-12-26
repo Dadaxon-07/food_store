@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:food_store/pages/home_page.dart';
+import 'package:food_store/pages/signup.dart';
 
 
 
@@ -26,7 +27,8 @@ Future<void> main() async {
           messagingSenderId: 'messagingSenderId',
           projectId: 'foodstore-c4511',
           storageBucket: 'foodstore-c4511.appspot.com',
-        ));
+        )
+      );
   }
 
   runApp(const MyApp());

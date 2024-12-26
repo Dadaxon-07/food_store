@@ -16,7 +16,7 @@ class AppWidget {
         color: Colors.black,
         fontSize: 24,
         fontWeight: FontWeight.bold,
-        fontFamily: 'Poppins');
+        fontFamily: 'popins');
   }
 
   static TextStyle LightTextFieldStyle() {

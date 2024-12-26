@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:food_store/pages/login.dart';
 
-import '../service/auth_service.dart';
+import '../service/auth.dart';
 import '../widget/widget_support.dart';
 import 'home_page.dart';
+import 'login.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -24,9 +24,7 @@ class _SignupState extends State<Signup> {
     String password = _passwordController.text.trim().toString();
 
     AuthService.signUpUser(email, password, name)
-        .then((value) => {
-      responsesignUp(value!)
-    });
+        .then((value) => {responsesignUp(value!)});
   }
 
   responsesignUp(User firebaseUser) {
@@ -34,7 +32,6 @@ class _SignupState extends State<Signup> {
       return HomePage();
     }));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -50,24 +47,27 @@ class _SignupState extends State<Signup> {
                   gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: [ Colors.red,
-                        Color.fromRGBO(178, 15, 15, 1.0),])),
+                      colors: [
+                    Colors.red,
+                    Color.fromRGBO(178, 15, 15, 1.0),
+                  ])),
             ),
-            Container(
-              margin:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 2,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40))),
-              child: Text(""),
-            ),
+           Container(
+             margin: EdgeInsets.only(top: MediaQuery.of(context).size.height/3),
+             width: MediaQuery.of(context).size.width,
+             height: MediaQuery.of(context).size.height/2,
+             decoration: BoxDecoration(
+               color: Colors.white,
+               borderRadius: BorderRadius.only(
+                 topLeft: Radius.circular(40),
+                 topRight: Radius.circular(40),
+               )
+             ),
+           ),
             Container(
               margin: EdgeInsets.only(top: 60, left: 20, right: 20),
               child: Column(
+
                 children: [
                   Center(
                       child: Image.asset(
@@ -99,14 +99,14 @@ class _SignupState extends State<Signup> {
                           ),
                           TextFormField(
                             controller: _nameController,
-                            validator: (value){
-                              if(value==null || value.isEmpty){
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
                                 return "Please Enter Name";
                               }
                               return null;
                             },
                             decoration: InputDecoration(
-                                hintText: "Name",
+                              hintText: "Name",
                                 hintStyle: AppWidget.semiBoldTextFieldStyle(),
                                 prefixIcon: Icon(Icons.person_outlined)),
                           ),
@@ -115,8 +115,8 @@ class _SignupState extends State<Signup> {
                           ),
                           TextFormField(
                             controller: _emailController,
-                            validator: (value){
-                              if(value==null || value.isEmpty){
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
                                 return "Please Enter E-mail";
                               }
                               return null;
@@ -132,8 +132,8 @@ class _SignupState extends State<Signup> {
                           ),
                           TextFormField(
                             controller: _passwordController,
-                            validator: (value){
-                              if(value==null || value.isEmpty){
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
                                 return "Please Enter Password";
                               }
                               return null;
@@ -144,7 +144,6 @@ class _SignupState extends State<Signup> {
                                 hintStyle: AppWidget.semiBoldTextFieldStyle(),
                                 prefixIcon: Icon(Icons.password_outlined)),
                           ),
-                      
                           SizedBox(
                             height: 80,
                           ),
@@ -177,11 +176,12 @@ class _SignupState extends State<Signup> {
                     ),
                   ),
                   SizedBox(
-                    height: 50,
+                   height: 50,
                   ),
                   GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context)=> Login()));
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Login()));
                     },
                     child: Text(
                       "Alread have an account? Login",
@@ -191,6 +191,7 @@ class _SignupState extends State<Signup> {
                 ],
               ),
             )
+
           ],
         ),
       ),

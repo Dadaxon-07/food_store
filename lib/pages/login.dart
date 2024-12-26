@@ -1,10 +1,12 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_store/pages/home_page.dart';
 import 'package:food_store/pages/signup.dart';
 import 'package:food_store/widget/widget_support.dart';
 
-import '../service/auth_service.dart';
+import '../service/auth.dart';
+
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -46,13 +48,13 @@ class _LoginState extends State<Login> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                    Colors.red,
-                    Color.fromRGBO(178, 15, 15, 1.0),
-                  ])),
+                        Colors.red,
+                        Color.fromRGBO(178, 15, 15, 1.0),
+                      ])),
             ),
             Container(
               margin:
-                  EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
+              EdgeInsets.only(top: MediaQuery.of(context).size.height / 3),
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 2,
               decoration: BoxDecoration(
@@ -68,10 +70,10 @@ class _LoginState extends State<Login> {
                 children: [
                   Center(
                       child: Image.asset(
-                    "images/logo.png",
-                    width: MediaQuery.of(context).size.width / 1.5,
-                    fit: BoxFit.cover,
-                  )),
+                        "images/logo.png",
+                        width: MediaQuery.of(context).size.width / 1.5,
+                        fit: BoxFit.cover,
+                      )),
                   SizedBox(
                     height: 50,
                   ),

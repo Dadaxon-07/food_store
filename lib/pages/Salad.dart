@@ -1,4 +1,5 @@
 
+
 import 'package:flutter/material.dart';
 
 import '../modal/post_modal.dart';
@@ -45,15 +46,30 @@ class _SaladState extends State<Salad> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 52, 52, 52),
       body: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: items.length,
         itemBuilder: (context, index) {
           String? postId = items[index].image_url;
           return Container(
-            margin: EdgeInsets.only(top: 10, left: 8, right: 8),
-            color: Colors.white70,
+            margin: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 15),
+
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 52, 52, 52),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromARGB(255, 9, 9, 9),
+                  blurRadius: 9.0,
+                  spreadRadius: 2,
+                  offset: Offset(
+                    1,
+                    0,
+                  ),
+                )
+              ],
+            ),
             child: Row(
               children: [
                 Container(
@@ -61,17 +77,29 @@ class _SaladState extends State<Salad> {
                     image: DecorationImage(
                         image: NetworkImage(items[index].image_url!),
                         fit: BoxFit.cover),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromARGB(255, 9, 9, 9),
+                        blurRadius: 5.0,
+                        spreadRadius: 1,
+                        offset: Offset(
+                          1,
+                          0,
+                        ),
+                      )
+                    ],
                     borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
+                      topLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
                     ),
-                    color: Colors.white,
+                    color: Color.fromARGB(255, 52, 52, 52),
                   ),
                   margin: EdgeInsets.only(
-                    top: 20,
-                    left: 8
+                      top: 15,
+                      left: 8,
+                    bottom: 15
                   ),
                   width: 165,
                   height: 163,
@@ -84,21 +112,21 @@ class _SaladState extends State<Salad> {
                       items[index].name!,
                       style: TextStyle(
                           fontSize: 17,
-                          color: Colors.black,
+                          color: Colors.white,
                           fontFamily: "Poppins", fontWeight: FontWeight.w800),
                     ),
                     SizedBox(height: 10,),
                     Row(
-                      children:[ Text(items[index].title!,
-                          style: TextStyle(
-                              fontSize: 14, color: Colors.black, fontFamily: "Poppins", )),
+                        children:[ Text(items[index].title!,
+                            style: TextStyle(
+                              fontSize: 14, color: Colors.white70, fontFamily: "Poppins", )),
 
-                      ] ),
+                        ] ),
                     SizedBox(height: 40,),
                     Text(items[index].price!,
                         style: TextStyle(
                             fontSize: 17.5,
-                            color: Colors.black,
+                            color: Colors.white,
                             fontWeight: FontWeight.w600)),
                     SizedBox(height: 5,)
 

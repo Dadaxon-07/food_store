@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../modal/post_modal.dart';
@@ -103,7 +104,9 @@ class _IchimliklarState extends State<Ichimliklar> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: kIsWeb
+          ? SizedBox()
+          :  FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
             return IchimlikDetails();

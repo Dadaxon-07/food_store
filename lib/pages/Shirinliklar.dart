@@ -103,7 +103,9 @@ class _ShirinliklarState extends State<Shirinliklar> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: kIsWeb
+          ? SizedBox()
+          :  FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
             return Shirinliklardetails();

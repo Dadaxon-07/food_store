@@ -5,7 +5,13 @@ class Post {
   String? image_url;
   String? postID;
 
-  Post({this.name, this.title, this.price, this.image_url, this.postID});
+  Post(
+      {this.name,
+      this.title,
+      this.price,
+      this.image_url,
+      this.postID
+      });
 
   Post.fromJson(Map<String, dynamic> json)
       : name = json['name'],

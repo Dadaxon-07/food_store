@@ -104,7 +104,9 @@ class _TaomState extends State<Taom> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: kIsWeb
+          ? SizedBox()
+          :  FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
             return TaomDetails();

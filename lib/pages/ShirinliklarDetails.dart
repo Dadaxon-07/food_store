@@ -41,7 +41,9 @@ class _ShirinliklardetailsState extends State<Shirinliklardetails> {
     String ism = _taomismiController.text.trim().toString();
     String info = _taominfo.text.trim().toString();
     String price = _taomnarhi.text.trim().toString();
-    if (ism.isNotEmpty && info.isNotEmpty && price.isNotEmpty) {
+    if (ism.isNotEmpty && info.isNotEmpty && price.
+
+    isNotEmpty) {
       _apiUploadImage(ism, info, price,);
 
     }

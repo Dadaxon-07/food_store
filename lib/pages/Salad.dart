@@ -1,6 +1,5 @@
-
-
 import 'package:flutter/material.dart';
+import 'package:image_network/image_network.dart';
 
 import '../modal/post_modal.dart';
 import '../service/rtdb_service.dart';
@@ -16,6 +15,7 @@ class Salad extends StatefulWidget {
 class _SaladState extends State<Salad> {
   List<Post> items = [];
   bool isClicked = false;
+
   _apiPostList() async {
     var list = await RTDBService.getPosts();
     items.clear();
@@ -54,7 +54,6 @@ class _SaladState extends State<Salad> {
           String? postId = items[index].image_url;
           return Container(
             margin: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 15),
-
             decoration: BoxDecoration(
               color: Color.fromARGB(255, 52, 52, 52),
               borderRadius: BorderRadius.circular(30),
@@ -73,38 +72,55 @@ class _SaladState extends State<Salad> {
             child: Row(
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(items[index].image_url!),
-                        fit: BoxFit.cover),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromARGB(255, 9, 9, 9),
-                        blurRadius: 5.0,
-                        spreadRadius: 1,
-                        offset: Offset(
-                          1,
-                          0,
-                        ),
-                      )
-                    ],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 9, 9, 9),
+                          blurRadius: 5.0,
+                          spreadRadius: 1,
+                          offset: Offset(
+                            1,
+                            0,
+                          ),
+                        )
+                      ],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                      ),
+                      color: Color.fromARGB(255, 52, 52, 52),
                     ),
-                    color: Color.fromARGB(255, 52, 52, 52),
-                  ),
-                  margin: EdgeInsets.only(
-                      top: 15,
-                      left: 8,
-                    bottom: 15
-                  ),
-                  width: 165,
-                  height: 163,
+                    margin: EdgeInsets.only(top: 15, left: 8, bottom: 15),
+                    width: 165,
+                    height: 163,
+                    child: ImageNetwork(
+                      image: items[index].image_url!,
+                      height: 150,
+                      width: 150,
+                      duration: 1500,
+                      curve: Curves.easeIn,
+                      onPointer: true,
+                      debugPrint: false,
+                      fullScreen: false,
+                      fitAndroidIos: BoxFit.cover,
+                      fitWeb: BoxFitWeb.cover,
+                      borderRadius: BorderRadius.circular(70),
+                      onLoading: const CircularProgressIndicator(
+                        color: Colors.indigoAccent,
+                      ),
+                      onError: const Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ),
+                      onTap: () {
+                        debugPrint("©gabriel_patrick_souza");
+                      },
+                    )),
+                SizedBox(
+                  width: 20,
                 ),
-                SizedBox(width: 20,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -113,23 +129,31 @@ class _SaladState extends State<Salad> {
                       style: TextStyle(
                           fontSize: 17,
                           color: Colors.white,
-                          fontFamily: "Poppins", fontWeight: FontWeight.w800),
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w800),
                     ),
-                    SizedBox(height: 10,),
-                    Row(
-                        children:[ Text(items[index].title!,
-                            style: TextStyle(
-                              fontSize: 14, color: Colors.white70, fontFamily: "Poppins", )),
-
-                        ] ),
-                    SizedBox(height: 40,),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(children: [
+                      Text(items[index].title!,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white70,
+                            fontFamily: "Poppins",
+                          )),
+                    ]),
+                    SizedBox(
+                      height: 40,
+                    ),
                     Text(items[index].price!,
                         style: TextStyle(
                             fontSize: 17.5,
                             color: Colors.white,
                             fontWeight: FontWeight.w600)),
-                    SizedBox(height: 5,)
-
+                    SizedBox(
+                      height: 5,
+                    )
                   ],
                 )
               ],

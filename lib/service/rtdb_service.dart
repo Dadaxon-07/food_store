@@ -112,6 +112,6 @@ class RTDBService {
   }
 
   static Future<void> deletePost(String id) async {
-    await _databse.child('post/$id').remove();
+    await _databse.child('post').child(id).remove();
   }
 }

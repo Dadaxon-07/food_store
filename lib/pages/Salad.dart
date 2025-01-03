@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_network/image_network.dart';
 
@@ -97,16 +98,16 @@ class _SaladState extends State<Salad> {
                     height: 163,
                     child: ImageNetwork(
                       image: items[index].image_url!,
-                      height: 150,
-                      width: 150,
+                      height: 161,
+                      width: 163,
                       duration: 1500,
                       curve: Curves.easeIn,
                       onPointer: true,
                       debugPrint: false,
                       fullScreen: false,
                       fitAndroidIos: BoxFit.cover,
+                      borderRadius: BorderRadius.circular(20),
                       fitWeb: BoxFitWeb.cover,
-                      borderRadius: BorderRadius.circular(70),
                       onLoading: const CircularProgressIndicator(
                         color: Colors.indigoAccent,
                       ),
@@ -142,6 +143,18 @@ class _SaladState extends State<Salad> {
                             color: Colors.white70,
                             fontFamily: "Poppins",
                           )),
+                      SizedBox(width: 80,),
+                      kIsWeb
+                      ?SizedBox()
+                     :IconButton(
+                        icon:  Icon(Icons.delete, color: Colors.red,),
+                        onPressed: () async{
+                        await RTDBService.deletePost(items[index].postID!);
+                        setState(() {
+                          items.removeAt(index);
+                        });
+                        },
+                      ),
                     ]),
                     SizedBox(
                       height: 40,
@@ -161,7 +174,10 @@ class _SaladState extends State<Salad> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton:
+          kIsWeb
+        ?SizedBox()
+     : FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
             return DetailsPage();

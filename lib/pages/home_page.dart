@@ -28,242 +28,329 @@ class _ModernTabBarState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        backgroundColor: Color.fromARGB(255, 52, 52, 52),
+        child: Column(
+          children: [
+            // Header qismi
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.grey[850],
+              ),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundImage:
+                        AssetImage('images/menu.png'), // Profil rasmi
+                  ),
+                  const SizedBox(width: 16),
+                  Text(
+                    'Hush kelibsiz', // Foydalanuvchi nomi
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.restaurant_menu, color: Colors.white),
+              title: Text(
+                'Menu',
+                style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+
+            ),
+            ListTile(
+              leading: Icon(Icons.phone, color: Colors.white),
+              title: Text(
+                'Telefon',
+                style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
+              ),
+              onTap: () {
+                UrlService.makePhoneCall("+998889445000");
+              },
+            ),
+
+            // Instagram
+            ListTile(
+              leading: Icon(Icons.photo_camera, color: Colors.pink),
+              title: Text(
+                'Instagram',
+                style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
+              ),
+              onTap: () {
+                UrlService.launchInBrauther(
+                    Uri.parse("https://www.instagram.com/qosimota1312/"));
+              },
+            ),
+
+            // Telegram
+            ListTile(
+              leading: Icon(Icons.telegram, color: Colors.blue),
+              title: Text(
+                'Telegram',
+                style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
+              ),
+              onTap: () {
+                // Telegram kanaliga o'tish
+              },
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
+        title: Text(
+          "Menu",
+          style: TextStyle(color: Colors.white, fontFamily: "Poppins"),
+        ),
+        iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
         backgroundColor: Color.fromARGB(255, 52, 52, 52),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(30.0),
-          child: TabBar(
-            padding: EdgeInsets.only(bottom: 10),
-            isScrollable: true,
-            controller: _tabController,
-            indicator: BoxDecoration(
-              borderRadius: BorderRadius.circular(30), // Rounded corners
-            ),
-            // Text color on selected tab
-            labelStyle: TextStyle(fontSize: 17.5, fontFamily: "Poppins"),
-            // Text color on unselected tab
-            tabs: [
-              Tab(
-                child: Container(
-                  margin: const EdgeInsets.only(right: 16, left: 5),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromARGB(255, 9, 9, 9),
-                        blurRadius: 5.0,
-                        spreadRadius: 1,
-                        offset: Offset(
-                          1,
-                          0,
-                        ),
-                      )
-                    ],
-                    color: Color.fromARGB(255, 52, 52, 52),
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Row(
-                    children: [
-                      isSelected
-                          ? CircleAvatar(
-                              child: Image.asset(
-                                "images/salad.png",
-                                width: 33,
-                                height: 33,
-                              ),
-                              foregroundColor: Colors.red,
-                              minRadius: 20,
-                              maxRadius: 24,
-                              backgroundColor: Colors.white,
-                            )
-                          : Image.asset(
+          preferredSize: Size.fromHeight(60.0), // AppBar ostidagi hudud hajmi
+          child: Column(
+            children: [
+              TabBar(
+                padding: EdgeInsets.only(top: 10), // Tepadan bo'shliq
+                isScrollable: true,
+                controller: _tabController,
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30), // Rounded corners
+                ),
+                labelStyle: TextStyle(fontSize: 17.5, fontFamily: "Poppins"),
+                tabs: [
+                  Tab(
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(255, 9, 9, 9),
+                            blurRadius: 5.0,
+                            spreadRadius: 1,
+                            offset: Offset(
+                              1,
+                              0,
+                            ),
+                          )
+                        ],
+                        color: Color.fromARGB(255, 52, 52, 52),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Row(
+                        children: [
+                          isSelected
+                              ? CircleAvatar(
+                            child: Image.asset(
                               "images/salad.png",
-                              width: 36,
-                              height: 36,
-                              fit: BoxFit.cover,
+                              width: 33,
+                              height: 33,
                             ),
-                      const SizedBox(width: 8),
-                      Text(
-                        "Salad",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight:
+                            foregroundColor: Colors.red,
+                            minRadius: 20,
+                            maxRadius: 24,
+                            backgroundColor: Colors.white,
+                          )
+                              : Image.asset(
+                            "images/salad.png",
+                            width: 36,
+                            height: 36,
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            "Salad",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight:
                               isSelected ? FontWeight.bold : FontWeight.normal,
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              Tab(
-                child: Container(
-                  margin: const EdgeInsets.only(right: 16, left: 5),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromARGB(255, 9, 9, 9),
-                        blurRadius: 5.0,
-                        spreadRadius: 1,
-                        offset: Offset(
-                          1,
-                          0,
-                        ),
-                      )
-                    ],
-                    color: Color.fromARGB(255, 52, 52, 52),
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Row(
-                    children: [
-                      isSelected
-                          ? CircleAvatar(
-                              child: Image.asset(
-                                "images/suv.png",
-                                width: 33,
-                                height: 33,
-                              ),
-                              foregroundColor: Colors.red,
-                              minRadius: 20,
-                              maxRadius: 24,
-                              backgroundColor: Colors.white,
-                            )
-                          : Image.asset(
+                  Tab(
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                        right: 16,
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(255, 9, 9, 9),
+                            blurRadius: 5.0,
+                            spreadRadius: 1,
+                            offset: Offset(
+                              1,
+                              0,
+                            ),
+                          )
+                        ],
+                        color: Color.fromARGB(255, 52, 52, 52),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Row(
+                        children: [
+                          isSelected
+                              ? CircleAvatar(
+                            child: Image.asset(
                               "images/suv.png",
-                              width: 36,
-                              height: 36,
-                              fit: BoxFit.cover,
+                              width: 33,
+                              height: 33,
                             ),
-                      const SizedBox(width: 8),
-                      Text(
-                        "Ichimlik",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight:
+                            foregroundColor: Colors.red,
+                            minRadius: 20,
+                            maxRadius: 24,
+                            backgroundColor: Colors.white,
+                          )
+                              : Image.asset(
+                            "images/suv.png",
+                            width: 36,
+                            height: 36,
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            "Ichimlik",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight:
                               isSelected ? FontWeight.bold : FontWeight.normal,
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              Tab(
-                child: Container(
-                  margin: const EdgeInsets.only(right: 16, left: 5),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromARGB(255, 9, 9, 9),
-                        blurRadius: 5.0,
-                        spreadRadius: 1,
-                        offset: Offset(
-                          1,
-                          0,
-                        ),
-                      )
-                    ],
-                    color: Color.fromARGB(255, 52, 52, 52),
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Row(
-                    children: [
-                      isSelected
-                          ? CircleAvatar(
-                              child: Image.asset(
-                                "images/food.png",
-                                width: 33,
-                                height: 33,
-                              ),
-                              foregroundColor: Colors.red,
-                              minRadius: 20,
-                              maxRadius: 24,
-                              backgroundColor: Colors.white,
-                            )
-                          : Image.asset(
+                  Tab(
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 16),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(255, 9, 9, 9),
+                            blurRadius: 5.0,
+                            spreadRadius: 1,
+                            offset: Offset(
+                              1,
+                              0,
+                            ),
+                          )
+                        ],
+                        color: Color.fromARGB(255, 52, 52, 52),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Row(
+                        children: [
+                          isSelected
+                              ? CircleAvatar(
+                            child: Image.asset(
                               "images/food.png",
-                              width: 36,
-                              height: 36,
-                              fit: BoxFit.cover,
+                              width: 33,
+                              height: 33,
                             ),
-                      const SizedBox(width: 8),
-                      Text(
-                        "Taom",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight:
+                            foregroundColor: Colors.red,
+                            minRadius: 20,
+                            maxRadius: 24,
+                            backgroundColor: Colors.white,
+                          )
+                              : Image.asset(
+                            "images/food.png",
+                            width: 36,
+                            height: 36,
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            "Taom",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight:
                               isSelected ? FontWeight.bold : FontWeight.normal,
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              Tab(
-                child: Container(
-                  margin: const EdgeInsets.only(right: 16, left: 5),
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromARGB(255, 9, 9, 9),
-                        blurRadius: 5.0,
-                        spreadRadius: 1,
-                        offset: Offset(
-                          1,
-                          0,
-                        ),
-                      )
-                    ],
-                    color: Color.fromARGB(255, 52, 52, 52),
-                    borderRadius: BorderRadius.circular(100),
-                  ),
-                  child: Row(
-                    children: [
-                      isSelected
-                          ? CircleAvatar(
-                              child: Image.asset(
-                                "images/sweet.png",
-                                width: 33,
-                                height: 33,
-                              ),
-                              foregroundColor: Colors.red,
-                              minRadius: 20,
-                              maxRadius: 24,
-                              backgroundColor: Colors.white,
-                            )
-                          : Image.asset(
+                  Tab(
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromARGB(255, 9, 9, 9),
+                            blurRadius: 5.0,
+                            spreadRadius: 1,
+                            offset: Offset(
+                              1,
+                              0,
+                            ),
+                          )
+                        ],
+                        color: Color.fromARGB(255, 52, 52, 52),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
+                      child: Row(
+                        children: [
+                          isSelected
+                              ? CircleAvatar(
+                            child: Image.asset(
                               "images/sweet.png",
-                              width: 36,
-                              height: 36,
-                              fit: BoxFit.cover,
+                              width: 33,
+                              height: 33,
                             ),
-                      const SizedBox(width: 8),
-                      Text(
-                        "Shirinlik",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight:
+                            foregroundColor: Colors.red,
+                            minRadius: 20,
+                            maxRadius: 24,
+                            backgroundColor: Colors.white,
+                          )
+                              : Image.asset(
+                            "images/sweet.png",
+                            width: 36,
+                            height: 36,
+                            fit: BoxFit.cover,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            "Shirinlik",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight:
                               isSelected ? FontWeight.bold : FontWeight.normal,
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                  SizedBox(
+                    height: 20,
+                  )
+                ],
               ),
-              SizedBox(
-                height: 20,
-              )
             ],
           ),
         ),
       ),
+
       body: TabBarView(
         controller: _tabController,
         children: [Salad(), Ichimliklar(), Taom(), Shirinliklar()],
       ),
-
     );
   }
 

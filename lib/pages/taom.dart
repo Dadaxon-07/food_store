@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:food_store/pages/taom_details.dart';
+import 'package:image_network/image_network.dart';
 
 import '../modal/post_modal.dart';
 import '../service/rtdb_service.dart';
-import 'details_page.dart';
+import 'taom_details.dart';
 
 class Taom extends StatefulWidget {
   const Taom({super.key});
@@ -15,25 +15,17 @@ class Taom extends StatefulWidget {
 
 class _TaomState extends State<Taom> {
   List<Post> items = [];
-  bool isClicked = false;
+
+  /// API orqali taomlar ro'yxatini olish funksiyasi
   _apiPostList() async {
     var list = await RTDBService.getFood();
-    items.clear();
     setState(() {
       items = list;
     });
   }
 
-  void createPostTo() {
-    Navigator.push(context, MaterialPageRoute(builder: (_) {
-      return DetailsPage();
-    }));
-    _apiPostList();
-  }
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _apiPostList();
   }
@@ -41,37 +33,81 @@ class _TaomState extends State<Taom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:Colors.white,
+      backgroundColor: Color.fromARGB(255, 52, 52, 52),
       body: ListView.builder(
         scrollDirection: Axis.vertical,
         itemCount: items.length,
         itemBuilder: (context, index) {
+          String? postId = items[index].image_url;
           return Container(
-            margin: EdgeInsets.only(top: 10, left: 8, right: 8),
-            color: Colors.white70,
+            margin: EdgeInsets.only(top: 10, left: 20, right: 20, bottom: 15),
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 52, 52, 52),
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: Color.fromARGB(255, 9, 9, 9),
+                  blurRadius: 9.0,
+                  spreadRadius: 2,
+                  offset: Offset(
+                    1,
+                    0,
+                  ),
+                )
+              ],
+            ),
             child: Row(
               children: [
                 Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(items[index].image_url!),
-                        fit: BoxFit.cover),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromARGB(255, 9, 9, 9),
+                          blurRadius: 5.0,
+                          spreadRadius: 1,
+                          offset: Offset(
+                            1,
+                            0,
+                          ),
+                        )
+                      ],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                      ),
+                      color: Color.fromARGB(255, 52, 52, 52),
                     ),
-                    color: Colors.white,
-                  ),
-                  margin: EdgeInsets.only(
-                      top: 20,
-                      left: 8
-                  ),
-                  width: 165,
-                  height: 163,
+                    margin: EdgeInsets.only(top: 15, left: 8, bottom: 15),
+                    width: 165,
+                    height: 163,
+                    child: ImageNetwork(
+                      image: items[index].image_url!,
+                      height: 161,
+                      width: 163,
+                      duration: 1500,
+                      curve: Curves.easeIn,
+                      onPointer: true,
+                      debugPrint: false,
+                      fullScreen: false,
+                      fitAndroidIos: BoxFit.cover,
+                      borderRadius: BorderRadius.circular(20),
+                      fitWeb: BoxFitWeb.cover,
+                      onLoading: const CircularProgressIndicator(
+                        color: Colors.indigoAccent,
+                      ),
+                      onError: const Icon(
+                        Icons.error,
+                        color: Colors.red,
+                      ),
+                      onTap: () {
+                        debugPrint("©gabriel_patrick_souza");
+                      },
+                    )),
+                SizedBox(
+                  width: 20,
                 ),
-                SizedBox(width: 20,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -79,24 +115,41 @@ class _TaomState extends State<Taom> {
                       items[index].name!,
                       style: TextStyle(
                           fontSize: 17,
-                          color: Colors.black,
-                          fontFamily: "Poppins", fontWeight: FontWeight.w800),
+                          color: Colors.white,
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.w800),
                     ),
-                    SizedBox(height: 10,),
-                    Row(
-                        children:[ Text(items[index].title!,
-                            style: TextStyle(
-                              fontSize: 14, color: Colors.black, fontFamily: "Poppins", )),
-
-                        ] ),
-                    SizedBox(height: 40,),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(children: [
+                      Text(items[index].title!,
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white70,
+                            fontFamily: "Poppins",
+                          )),
+                      SizedBox(width: 60,),
+                      kIsWeb
+                      ?SizedBox()
+                      :IconButton(
+                        icon:  Icon(Icons.delete, color: Colors.red,),
+                        onPressed: () {
+                          // ...
+                        },
+                      ),
+                    ]),
+                    SizedBox(
+                      height: 40,
+                    ),
                     Text(items[index].price!,
                         style: TextStyle(
                             fontSize: 17.5,
-                            color: Colors.black,
+                            color: Colors.white,
                             fontWeight: FontWeight.w600)),
-                    SizedBox(height: 5,)
-
+                    SizedBox(
+                      height: 5,
+                    )
                   ],
                 )
               ],
@@ -104,15 +157,20 @@ class _TaomState extends State<Taom> {
           );
         },
       ),
-      floatingActionButton: kIsWeb
-          ? SizedBox()
-          :  FloatingActionButton(
+      floatingActionButton:
+      kIsWeb
+          ?SizedBox()
+          : FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (_) {
             return TaomDetails();
           }));
         },
-        child: Image.asset("images/food.png", height: 40, width: 40,),
+        child: Image.asset(
+          "images/food.png",
+          height: 40,
+          width: 40,
+        ),
         backgroundColor: Color.fromRGBO(36, 36, 47, 1.0),
       ),
     );

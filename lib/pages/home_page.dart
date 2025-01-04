@@ -39,11 +39,7 @@ class _ModernTabBarState extends State<HomePage>
               ),
               child: Row(
                 children: [
-                  CircleAvatar(
-                    radius: 40,
-                    backgroundImage:
-                        AssetImage('images/menu.png'), // Profil rasmi
-                  ),
+                  Image.asset('images/foodmenu.png', height: 85, width: 85, fit: BoxFit.cover,),
                   const SizedBox(width: 16),
                   Text(
                     'Hush kelibsiz', // Foydalanuvchi nomi
@@ -58,7 +54,7 @@ class _ModernTabBarState extends State<HomePage>
               ),
             ),
             ListTile(
-              leading: Icon(Icons.restaurant_menu, color: Colors.white),
+              leading: Image.asset("images/menu.png", height: 40, width: 40 , fit: BoxFit.cover, color: Colors.white70,),
               title: Text(
                 'Menu',
                 style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
@@ -69,19 +65,28 @@ class _ModernTabBarState extends State<HomePage>
 
             ),
             ListTile(
-              leading: Icon(Icons.phone, color: Colors.white),
+              leading: Image.asset("images/dostafka.png", height: 40, width: 40, fit: BoxFit.cover,),
               title: Text(
-                'Telefon',
+                'Dostavka 1',
                 style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
               ),
               onTap: () {
                 UrlService.makePhoneCall("+998889445000");
               },
             ),
-
+            ListTile(
+              leading: Image.asset("images/dostafka.png", height: 40, width: 40, fit: BoxFit.cover,),
+              title: Text(
+                'Dostavka 2',
+                style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
+              ),
+              onTap: () {
+                UrlService.makePhoneCall("+998889446000");
+              },
+            ),
             // Instagram
             ListTile(
-              leading: Icon(Icons.photo_camera, color: Colors.pink),
+              leading: Image.asset("images/insta.png", height: 40, width: 40, fit: BoxFit.cover,),
               title: Text(
                 'Instagram',
                 style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
@@ -93,16 +98,7 @@ class _ModernTabBarState extends State<HomePage>
             ),
 
             // Telegram
-            ListTile(
-              leading: Icon(Icons.telegram, color: Colors.blue),
-              title: Text(
-                'Telegram',
-                style: TextStyle(fontFamily: 'Poppins', color: Colors.white),
-              ),
-              onTap: () {
-                // Telegram kanaliga o'tish
-              },
-            ),
+
           ],
         ),
       ),

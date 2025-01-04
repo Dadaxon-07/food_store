@@ -39,6 +39,11 @@ class _IchimliklarState extends State<Ichimliklar> {
     _apiPostList();
   }
 
+  Future<void> deleteIchimlik(String id) async {
+    await RTDBService.deleteIchimlik(id);
+    _apiPostList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,8 +148,11 @@ class _IchimliklarState extends State<Ichimliklar> {
                       ?SizedBox()
                      : IconButton(
                         icon:  Icon(Icons.delete, color: Colors.red,),
-                        onPressed: () {
-                          // ...
+                        onPressed: () async{
+                          await RTDBService.deleteIchimlik(items[index].postID!);
+                          setState(() {
+                            items.removeAt(index);
+                          });
                         },
                       ),
                     ]),

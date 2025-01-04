@@ -30,6 +30,11 @@ class _TaomState extends State<Taom> {
     _apiPostList();
   }
 
+  Future<void> deleteFood(String id) async {
+    await RTDBService.deleteFood(id);
+    _apiPostList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,8 +139,11 @@ class _TaomState extends State<Taom> {
                       ?SizedBox()
                       :IconButton(
                         icon:  Icon(Icons.delete, color: Colors.red,),
-                        onPressed: () {
-                          // ...
+                        onPressed: () async{
+                          await RTDBService.deleteFood(items[index].postID!);
+                          setState(() {
+                            items.removeAt(index);
+                          });
                         },
                       ),
                     ]),

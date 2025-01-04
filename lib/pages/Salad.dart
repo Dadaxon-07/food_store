@@ -96,28 +96,32 @@ class _SaladState extends State<Salad> {
                     margin: EdgeInsets.only(top: 15, left: 8, bottom: 15),
                     width: 165,
                     height: 163,
-                    child: ImageNetwork(
-                      image: items[index].image_url!,
-                      height: 161,
-                      width: 163,
-                      duration: 1500,
-                      curve: Curves.easeIn,
-                      onPointer: true,
-                      debugPrint: false,
-                      fullScreen: false,
-                      fitAndroidIos: BoxFit.cover,
-                      borderRadius: BorderRadius.circular(20),
-                      fitWeb: BoxFitWeb.cover,
-                      onLoading: const CircularProgressIndicator(
-                        color: Colors.indigoAccent,
+                    child: InteractiveViewer(
+                      minScale: 1,
+                      maxScale: 5,
+                      child: ImageNetwork(
+                        image: items[index].image_url!,
+                        height: 161,
+                        width: 163,
+                        duration: 1500,
+                        curve: Curves.easeIn,
+                        onPointer: true,
+                        debugPrint: false,
+                        fullScreen: false,
+                        fitAndroidIos: BoxFit.cover,
+                        borderRadius: BorderRadius.circular(20),
+                        fitWeb: BoxFitWeb.cover,
+                        onLoading: const CircularProgressIndicator(
+                          color: Colors.indigoAccent,
+                        ),
+                        onError: const Icon(
+                          Icons.error,
+                          color: Colors.red,
+                        ),
+                        onTap: () {
+                          debugPrint("©gabriel_patrick_souza");
+                        },
                       ),
-                      onError: const Icon(
-                        Icons.error,
-                        color: Colors.red,
-                      ),
-                      onTap: () {
-                        debugPrint("©gabriel_patrick_souza");
-                      },
                     )),
                 SizedBox(
                   width: 20,

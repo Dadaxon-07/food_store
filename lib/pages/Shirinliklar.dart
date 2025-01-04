@@ -38,6 +38,12 @@ class _ShirinliklarState extends State<Shirinliklar> {
     super.initState();
     _apiPostList();
   }
+
+  Future<void> deleteSweet(String id) async {
+    await RTDBService.deleteSweet(id);
+    _apiPostList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,53 +72,33 @@ class _ShirinliklarState extends State<Shirinliklar> {
             ),
             child: Row(
               children: [
-                Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color.fromARGB(255, 9, 9, 9),
-                          blurRadius: 5.0,
-                          spreadRadius: 1,
-                          offset: Offset(
-                            1,
-                            0,
-                          ),
-                        )
-                      ],
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
-                      ),
-                      color: Color.fromARGB(255, 52, 52, 52),
+                InteractiveViewer(
+                  minScale: 1,
+                  maxScale: 5,
+                  child: ImageNetwork(
+                    image: items[index].image_url!,
+                    height: 161,
+                    width: 163,
+                    duration: 1500,
+                    curve: Curves.easeIn,
+                    onPointer: true,
+                    debugPrint: false,
+                    fullScreen: false,
+                    fitAndroidIos: BoxFit.cover,
+                    borderRadius: BorderRadius.circular(20),
+                    fitWeb: BoxFitWeb.cover,
+                    onLoading: const CircularProgressIndicator(
+                      color: Colors.indigoAccent,
                     ),
-                    margin: EdgeInsets.only(top: 15, left: 8, bottom: 15),
-                    width: 165,
-                    height: 163,
-                    child: ImageNetwork(
-                      image: items[index].image_url!,
-                      height: 161,
-                      width: 163,
-                      duration: 1500,
-                      curve: Curves.easeIn,
-                      onPointer: true,
-                      debugPrint: false,
-                      fullScreen: false,
-                      fitAndroidIos: BoxFit.cover,
-                      borderRadius: BorderRadius.circular(20),
-                      fitWeb: BoxFitWeb.cover,
-                      onLoading: const CircularProgressIndicator(
-                        color: Colors.indigoAccent,
-                      ),
-                      onError: const Icon(
-                        Icons.error,
-                        color: Colors.red,
-                      ),
-                      onTap: () {
-                        debugPrint("©gabriel_patrick_souza");
-                      },
-                    )),
+                    onError: const Icon(
+                      Icons.error,
+                      color: Colors.red,
+                    ),
+                    onTap: () {
+                      debugPrint("©gabriel_patrick_souza");
+                    },
+                  ),
+                ),
                 SizedBox(
                   width: 20,
                 ),
@@ -142,8 +128,11 @@ class _ShirinliklarState extends State<Shirinliklar> {
                       ?SizedBox()
                       :IconButton(
                         icon:  Icon(Icons.delete, color: Colors.red,),
-                        onPressed: () {
-                          // ...
+                        onPressed: () async{
+                          await RTDBService.deleteSweet(items[index].postID!);
+                          setState(() {
+                            items.removeAt(index);
+                          });
                         },
                       ),
                     ]),

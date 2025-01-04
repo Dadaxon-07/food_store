@@ -36,6 +36,7 @@ class RTDBService {
   }
 
   static Future<Stream<DatabaseEvent>> addIchimlik(Post post) async {
+    post.postID = _databse.child('ichimliklar').push().key;
     _databse.child('ichimliklar').push().set(post.toJson());
     return _databse.onChildAdded;
   }
@@ -54,14 +55,19 @@ class RTDBService {
           name: map['name'],
           title: map['title'],
           price: map['price'],
-          image_url: map['image_url']);
+          image_url: map['image_url'],
+          postID: child.key);
       ichimlik.add(post);
     }
     return ichimlik;
   }
 
+  static Future<void> deleteIchimlik(String id) async {
+    await _databse.child('ichimliklar').child(id).remove();
+  }
+
   static Future<Stream<DatabaseEvent>> addSweet(Post post) async {
-    //
+    post.postID = _databse.child('Shirinliklar').push().key;
     _databse.child('Shirinliklar').push().set(post.toJson());
     return _databse.onChildAdded;
   }
@@ -80,13 +86,19 @@ class RTDBService {
           name: map['name'],
           title: map['title'],
           price: map['price'],
-          image_url: map['image_url']);
+          image_url: map['image_url'],
+          postID: child.key);
       shirinliklar.add(post);
     }
     return shirinliklar;
   }
 
+  static Future<void> deleteSweet(String id) async {
+    await _databse.child('Shirinliklar').child(id).remove();
+  }
+
   static Future<Stream<DatabaseEvent>> addFood(Post post) async {
+    post.postID = _databse.child('Taomlar').push().key;
     _databse.child('Taomlar').push().set(post.toJson());
     return _databse.onChildAdded;
   }
@@ -105,10 +117,15 @@ class RTDBService {
           name: map['name'],
           title: map['title'],
           price: map['price'],
-          image_url: map['image_url']);
+          image_url: map['image_url'],
+          postID: child.key);
       taomlar.add(post);
     }
     return taomlar;
+  }
+
+  static Future<void> deleteFood(String id) async {
+    await _databse.child('Taomlar').child(id).remove();
   }
 
   static Future<void> deletePost(String id) async {
